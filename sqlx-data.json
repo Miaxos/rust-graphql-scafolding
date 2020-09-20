@@ -1,0 +1,44 @@
+{
+  "db": "PostgreSQL",
+  "0f06a92c1a8647d261dc163d428da7ff2c2c5a7d81aecda8fc0035117fcc1fb7": {
+    "query": "\n        INSERT INTO sessions (key, csrf, userid, expiry)\n          VALUES ($1, $2, $3, $4)\n          ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Uuid",
+          "Timestamptz"
+        ]
+      },
+      "nullable": []
+    }
+  },
+  "cb7d7931114e4f2b4dc59ff902869431ef62d446b3a9ef63713e2b2588e13b53": {
+    "query": "\n        SELECT id, password\n          FROM users\n          WHERE email = $1\n        ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "password",
+          "type_info": "Varchar"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      },
+      "nullable": [
+        false,
+        false
+      ]
+    }
+  }
+}

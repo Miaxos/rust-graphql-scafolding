@@ -1,0 +1,34 @@
+[package]
+name = "rust-graphql-scafolding"
+version = "0.1.0"
+authors = ["Anthony Griffon <an.griffon@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.32"                          # Flexible concrete Error type built on std::error::Error
+async-graphql = "2.0.0-alpha.13"
+async-graphql-warp = "2.0.0-alpha.13"
+async-graphql-derive = "2.0.0-alpha.13"
+async-graphql-parser = "2.0.0-alpha.13"
+argonautica = "0.2.0"      # Idiomatic Argon2 password hashing for Rust
+biscuit = "0.5.0-beta2"         # A library to work with Javascript Object Signing and Encryption(JOSE), including JSON Web Tokens (JWT…
+dotenv = "0.15.0"
+chrono = "0.4.15"
+colored = "2.0.0"              # The most simple way to add colors in your terminal
+log = "0.4.11"                 # A lightweight logging facade for Rust
+tokio = { version = "0.2", features = ["macros"] }
+warp = "0.2.5"                  # serve the web at warp speeds
+futures = "0.3.5"                 # An implementation of futures and streams featuring zero allocations, composability, and itera…
+async-trait = "0.1.40" 
+rand = "0.7.3"              # Random number generators and other randomness functionality.
+sqlx = { version = "0.4.0-beta.1", default-features = false, features = [ "runtime-tokio", "macros", "postgres", "chrono", "uuid", "json", "offline" ] }
+http-api-problem = { version = "0.17.0", features = ["with-warp"] }    # A library to create HTTP error response content for APIs based on RFC 7807
+serde_derive = "1.0.116"                    # Macros 1.1 implementation of #[derive(Serialize, Deserialize)]
+serde = "1.0.116"                              # A generic serialization/deserialization framework
+serde_json = "1.0.57"                     # A JSON serialization file format
+thiserror = "1.0.20"                                     # derive(Error)
+uuid = { version = "0.8.1", features = ["v4"] }                  # A library to generate and parse UUIDs.
+redis = { version = "0.16.0", features = ["tokio-rt-core"] }                # Redis driver for Rust.
+bincode = "1.3.1"                    # A binary serialization / deserialization strategy that uses Serde for transforming structs…

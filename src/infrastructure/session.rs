@@ -3,8 +3,14 @@ use crate::infrastructure::env::Environment;
 use chrono::Utc;
 use redis::AsyncCommands;
 use std::convert::TryInto;
+use uuid::Uuid;
 
 #[derive(Clone, Debug)]
+/**
+ * Describe the actual session of the user:
+ * - if auth is None -> Unauthentificated or authentification is outdated
+ * - if auth is Some -> Authentificated and authentification is still valid
+ */
 pub struct Session {
     auth: Option<SessionDB>,
     env: Environment,
@@ -14,40 +20,23 @@ impl Session {
     pub async fn new(env: Environment, auth: Option<(String, String)>) -> anyhow::Result<Self> {
         // Get the session from the user
         // If the user is not connected anymore, return a None session
-        Ok(Self { env, auth: None })
-    }
+        let session = match auth {
+            None => None,
+            Some((jwt, crsf)) => SessionDB::new(&env, &jwt, &crsf).await.ok(),
+        };
 
-    /*
-    pub fn userid(&self) -> Option<Uuid> {
-        match self.auth.clone() {
-            Some(auth) => Some(auth.userid),
-            _ => None,
-        }
+        Ok(Self { env, auth: session })
     }
 
     /**
-     * Return Account for the user
+     * Give use the userid for the user
      */
-    pub async fn account(&self) -> anyhow::Result<Account> {
-        match self.auth.clone() {
-            Some(auth) => Ok(query_as_unchecked!(
-                Account,
-                r#"
-            SELECT users.id, users.password
-              FROM sessions
-            INNER JOIN users
-            ON sessions.userid = users.id
-            WHERE
-              sessions.key = $1
-            "#,
-                auth.key
-            )
-            .fetch_one(self.env.database())
-            .await?),
-            _ => Err(anyhow!("blbl")),
+    pub fn userid(&self) -> Option<Uuid> {
+        match &self.auth {
+            Some(session) => Some(session.userid),
+            None => None,
         }
     }
-    */
 
     /**
      * To set a value inside the redis for the session.

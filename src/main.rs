@@ -4,6 +4,7 @@ extern crate log;
 extern crate anyhow;
 
 mod applications;
+mod domain;
 mod infrastructure;
 
 use applications::graphql_schema::graphql::{Mutation, Query};

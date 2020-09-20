@@ -15,6 +15,121 @@
       "nullable": []
     }
   },
+  "1ecf9b4481325b4bd2d4ebfdfe50c52c4956c149706e8a4a3987074f81301c29": {
+    "query": "\n            SELECT * from users\n            WHERE id = $1\n            LIMIT 1\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "lastname",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 2,
+          "name": "firstname",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 3,
+          "name": "email",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 4,
+          "name": "password",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 5,
+          "name": "created_at",
+          "type_info": "Timestamptz"
+        },
+        {
+          "ordinal": 6,
+          "name": "updated_at",
+          "type_info": "Timestamptz"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Uuid"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "30186cd6abf18f811657518c15a0e4090f18c6c99ca3d761e8771b353f75f6bd": {
+    "query": "INSERT INTO users (\n                firstname,\n                lastname,\n                password,\n                email\n            ) VALUES ($1, $2, $3, $4) RETURNING id, firstname, lastname, email, password, created_at, updated_at\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 1,
+          "name": "firstname",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 2,
+          "name": "lastname",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 3,
+          "name": "email",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 4,
+          "name": "password",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 5,
+          "name": "created_at",
+          "type_info": "Timestamptz"
+        },
+        {
+          "ordinal": 6,
+          "name": "updated_at",
+          "type_info": "Timestamptz"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Varchar",
+          "Varchar"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
   "cb7d7931114e4f2b4dc59ff902869431ef62d446b3a9ef63713e2b2588e13b53": {
     "query": "\n        SELECT id, password\n          FROM users\n          WHERE email = $1\n        ",
     "describe": {
@@ -36,6 +151,63 @@
         ]
       },
       "nullable": [
+        false,
+        false
+      ]
+    }
+  },
+  "d113dc870d6165be099c7d09905a51528d90b26eef24a18b7cf9f39751e14420": {
+    "query": "\n            SELECT key, csrf, userid, expiry, invalidated, created_at, updated_at\n              FROM sessions\n              WHERE key = $1 AND csrf = $2 AND expiry > NOW() AND NOT invalidated\n              ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "key",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 1,
+          "name": "csrf",
+          "type_info": "Varchar"
+        },
+        {
+          "ordinal": 2,
+          "name": "userid",
+          "type_info": "Uuid"
+        },
+        {
+          "ordinal": 3,
+          "name": "expiry",
+          "type_info": "Timestamptz"
+        },
+        {
+          "ordinal": 4,
+          "name": "invalidated",
+          "type_info": "Bool"
+        },
+        {
+          "ordinal": 5,
+          "name": "created_at",
+          "type_info": "Timestamptz"
+        },
+        {
+          "ordinal": 6,
+          "name": "updated_at",
+          "type_info": "Timestamptz"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
         false,
         false
       ]

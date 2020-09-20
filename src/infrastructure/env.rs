@@ -130,16 +130,6 @@ impl Environment {
     }
 
     /**
-     * Get a connection for the redis
-     */
-    pub async fn redis(&self) -> redis::RedisResult<redis::aio::MultiplexedConnection> {
-        self.redis_client.get_multiplexed_tokio_connection().await
-    }
-
-    /*
-
-
-    /**
      * Decode a JWT to a Claims
      */
     pub fn decode(&self, jwt: String) -> Result<ClaimsSet<auth::Claims>, biscuit::errors::Error> {
@@ -154,5 +144,10 @@ impl Environment {
         token.payload().map(|x| x.clone())
     }
 
-    */
+    /**
+     * Get a connection for the redis
+     */
+    pub async fn redis(&self) -> redis::RedisResult<redis::aio::MultiplexedConnection> {
+        self.redis_client.get_multiplexed_tokio_connection().await
+    }
 }

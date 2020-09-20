@@ -11,7 +11,6 @@ use async_graphql::extensions::Logger as GQLLogger;
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
 use dotenv::dotenv;
-use futures::future;
 use infrastructure::auth;
 use infrastructure::env::Environment;
 use infrastructure::logger::ConfigLogger;
